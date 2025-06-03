@@ -2,4 +2,15 @@
   margin-top: 20px;
   padding: 0;
   list-style: none;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sidebar-nav a {
+    text-decoration: none;
+}
+
+#title-home {
+  font-family: "Lobster", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }

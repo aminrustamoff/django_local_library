@@ -1,31 +1,32 @@
 {% extends "base_generic.html" %}
 
 {% block title %}
-  <title>Local Library Home</title>
+  <title>Home</title>
 {% endblock %}
 
 {% block content %}
-  <h1>Local Library Home</h1>
+  <h1 id="title-home">Local Library Home</h1>
   <p>
     Welcome to LocalLibrary, a website developed by
-    <em>Mozilla Developer Network</em>!
-  </p>
-  <h2>Dynamic content</h2>
+    <em>amin_rustamoff</em> !
+  </p><hr/>
+  <h2>Status in our Library</h2>
   <p>The library has the following record counts:</p>
-  <ul>
-    <li><strong>Books:</strong> {{ num_books }}</li>
-    <li><strong>Copies:</strong> {{ num_instances }}</li>
-    <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
-    <li><strong>Authors:</strong> {{ num_authors }}</li>
-    <li><strong>Genres:</strong> {{ num_genres }} </li>
-    <li><strong>Available Genres:</strong> {{ num_instances_available }}</li>
+  <ul class="list-unstyled">
+    <li><strong><i class="bi bi-bookshelf"></i> Books:</strong> {{ num_books }}</li>
+    <li><strong><i class="bi bi-copy"></i> Copies:</strong> {{ num_instances }}</li>
+    <li><strong><i class="bi bi-check-square"></i> Copies available:</strong> {{ num_instances_available }}</li>
+    <li><strong><i class="bi bi-person-vcard"></i> Authors:</strong> {{ num_authors }}</li>
+    <li><strong><i class="bi bi-puzzle"></i> Genres:</strong> {{ num_genres }} </li>
+    <li><strong><i class="bi bi-lightning-charge"></i> Available Genres:</strong> {{ num_instances_available }}</li>
   </ul>
+    <hr/>
   <h2>Available books</h2>
   <p>Below, you can see available book list.</p>
-  <ul>
+  <ul class="list-unstyled">
     {% for book in book_list %}
       <li>
-        <i>{{ book }}</i>
+        <i><i class="bi bi-caret-right"></i> {{ book }}</i>
       </li>
     {% empty %}
       <li>No books available.</li>
