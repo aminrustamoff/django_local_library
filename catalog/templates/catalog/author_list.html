@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Author List</h1>
+  {% if author_list %}
+    <ul>
+      {% for author in author_list %}
+      <li class="list-unstyled">
+        <i class="bi bi-person-vcard"></i>
+        <a href="{% url 'author-detail' author.id %}">{{ author.first_name }} {{ author.last_name }}</a> <i>({{ author.date_of_birth }} - {{ author.date_of_death}})</i>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no authors in the library.</p>
+  {% endif %}
+{% endblock %}

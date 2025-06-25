@@ -138,7 +138,7 @@ class Author(models.Model):
     date_of_death = models.DateField('Died', null=True, blank=True)
 
     class Meta:
-        ordering = ['last_name', 'first_name']
+        ordering = ['last_name', 'first_name', 'date_of_birth', 'date_of_death']
 
     def get_absolute_url(self):
         """Returns the URL to access a particular author instance."""
