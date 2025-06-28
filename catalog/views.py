@@ -1,6 +1,12 @@
 from django.shortcuts import render
 
 from .models import Book, Author, BookInstance, Genre
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def restricted(request):
+    """View function for restricted page."""
+    return render(request, 'catalog/index.html')
 
 def index(request):
     """View function for home page of site."""
