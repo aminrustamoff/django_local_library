@@ -32,4 +32,8 @@
       <li>No books available.</li>
     {% endfor %}
   </ul>
+  <hr/>
+  <p>
+    <i class="bi bi-eye"></i> This page has been visited <strong>{{ num_visits }}</strong> time{{ num_visits|pluralize }}
+  </p>
 {% endblock %}
