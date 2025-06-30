@@ -49,7 +49,7 @@
                   <li><a href="{% url 'all-borrowed' %}"><i class="bi bi-bookmarks"></i> All borrowed books</a></li>
                 {% endif %}
               {% else %}
-                <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+                <li><a href="{% url 'login' %}?next={{ request.path }}"><i class="bi bi-box-arrow-in-right"></i> Login</a></li>
               {% endif %}
             </ul>
 

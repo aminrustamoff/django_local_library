@@ -43,7 +43,7 @@ def index(request):
 from django.views import generic
 
 # Restrict access to views to non-logged-in users
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 class BookListView(generic.ListView):
     model = Book
@@ -72,10 +72,15 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
             .order_by('due_back')
         )
 
-class AllLoanedBooksListView(LoginRequiredMixin, generic.ListView):
+class AllLoanedBooksListView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
     """Generic class-based view listing all books on loan."""
     model = BookInstance
     template_name = 'catalog/bookinstance_list_borrowed_all.html'
+    permission_required = 'catalog.can_mark_returned'
+    # Or multiple permissions
+    # permission_required = ('catalog.can_mark_returned', 'catalog.change_book')
+    # Note that 'catalog.change_book' is permission
+    # Is created automatically for the book model, along with add_book, and delete_book
     paginate_by = 10
 
     def get_queryset(self):
