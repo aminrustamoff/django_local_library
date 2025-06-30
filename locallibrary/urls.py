@@ -21,9 +21,10 @@ from django.urls import include
 # Add URL maps to redirect the base URL to our application
 from django.views.generic import RedirectView
 from django.contrib.auth import views as auth_views
+from django.contrib import admin
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('catalog/', include('catalog.urls')),
     path('', RedirectView.as_view(url='catalog/', permanent=True)),
     path('accounts/', include('django.contrib.auth.urls')),
