@@ -17,10 +17,15 @@ from django.urls import reverse
 
 from catalog.forms import RenewBookForm
 
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Author
+
+
 
 # @login_required
 def index(request):
-    """View function for home page of site."""
+    """View function for home page of site."""  
 
     # Generate counts of some of the main objects
     num_books = Book.objects.all().count()
@@ -133,5 +138,64 @@ class AllLoanedBooksListView(LoginRequiredMixin, PermissionRequiredMixin, generi
             BookInstance.objects.filter(status__exact='o')
             .order_by('due_back')
         )
+
+# Create, Update, and Delete views for Author model
+
+class AuthorCreate(PermissionRequiredMixin, CreateView):
+    model = Author
+    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+    initial = {'date_of_death': '11/11/2023'}
+    permission_required = 'catalog.add_author'
+
+class AuthorUpdate(PermissionRequiredMixin, UpdateView):
+    model = Author
+    # Not recommended (potential security issue if more fields added)
+    fields = '__all__'
+    permission_required = 'catalog.change_author'
+
+class AuthorDelete(PermissionRequiredMixin, DeleteView):
+    model = Author
+    success_url = reverse_lazy('authors')
+    permission_required = 'catalog.delete_author'
+
+    def form_valid(self, form):
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except Exception as e:
+            return HttpResponseRedirect(
+                reverse("author-delete", kwargs={"pk": self.object.pk})
+            )
+        
+
+# Create, Update, and Delete views for Book model
+
+class BookCreate(PermissionRequiredMixin, CreateView):
+    model = Book
+    fields = ['title', 'author', 'summary', 'isbn', 'genre']
+    initial = {'isbn': '1234567890'}
+    permission_required = 'catalog.add_book'
+
+class BookUpdate(PermissionRequiredMixin, UpdateView):
+    model = Book
+    # Not recommended (potential security issue if more fields added)
+    fields = '__all__'
+    permission_required = 'catalog.change_book'
+
+class BookDelete(PermissionRequiredMixin, DeleteView):
+    model = Book
+    success_url = reverse_lazy('books')
+    permission_required = 'catalog.delete_book'
+
+    def form_valid(self, form):
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except Exception as e:
+            return HttpResponseRedirect(
+                reverse("book-delete", kwargs={"pk": self.object.pk})
+            )
+
+        
 
 
